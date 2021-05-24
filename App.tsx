@@ -1,46 +1,70 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { Button, Image, Platform, StyleSheet, Text, View } from 'react-native';
 import * as Location from "expo-location"
+import { weatherType } from './types';
+import WeatherDisplay from './components/WeatherDisplay';
+import UnitsPicker from './components/UnitsPicker';
+import ReloadIcon from './components/ReloadIcon';
+import WeatherDetails from './components/WeatherDetails';
+import { WEATHER_API_KEY } from 'react-native-dotenv';
 
 
-const WEATHER_API_KEY =  '2aa16304e45aa620fb5c3a1ea5209f0f'
+
 
 const styles = StyleSheet.create({
   pageContainer: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#dfdfdf',
     alignItems: 'center',
     justifyContent: 'center',
   },
 
-  mainContainer: {
-    backgroundColor: '#55f',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '100%',
-    height: '20%',
-    paddingLeft: '5%',
-    paddingRight: '5%',
+  reloadIcon: {
+    position: 'absolute',
+    ...Platform.select({
+      ios: {
+          top: -30,
+      },
+      android: {
+          top: 56,
+      },
+  }),
+    right: -40,
+    height: 50,
+    width: 100,
   }
 
 });
 
 
 
-
 export default function App() {
+  
+  const ApiKey = WEATHER_API_KEY
+  console.log(ApiKey)
+
+  const baseUrl = `https://api.openweathermap.org/data/2.5/weather?`
 
 
+
+  const [weather, setWeather] = useState({
+    name: "",
+    main: {temp:0,feels_like:0,humidity:0,pressure:0},
+    weather: [{main:"",description:"",icon:""}],
+    wind: {speed:0}
+  } as weatherType)
+
+  const [unit,setUnit] = useState('metric')
+  
 
   useEffect(() => {
-    console.log(WEATHER_API_KEY)
     load()
-  },[])
+  },[unit])
 
-  const [localization, setLocalization] = useState({latitude:0,longitude:0})
 
   const load = async () => {
+
     try {
       let { status } = await Location.requestForegroundPermissionsAsync();
       
@@ -51,9 +75,14 @@ export default function App() {
     
       const location = await Location.getCurrentPositionAsync();
       const { latitude, longitude } = location.coords;
-      setLocalization({latitude,longitude})
+      const Url = `${baseUrl}lat=${latitude}&lon=${longitude}&units=${unit}&appid=${ApiKey}`
 
+      const res = await fetch(Url)
+      const infos = await res.json()
 
+      console.log(infos)
+
+      setWeather(infos)
     }catch(err){
       alert(err.message)
     }
@@ -62,11 +91,13 @@ export default function App() {
 
   return (
     <View style={styles.pageContainer}>
-      <View style={styles.mainContainer}>
-        <Text>Latitude: {localization.latitude}</Text>
-        <Text>Longitude: {localization.longitude}</Text>
-        <StatusBar style="auto" />
+      
+      <UnitsPicker unit={unit} setUnit={setUnit} />
+      <View style={styles.reloadIcon} >
+        <ReloadIcon  onPress={load}/>
       </View>
+      <WeatherDisplay {...weather} />
+      <WeatherDetails {...weather} />
     </View>
   );
 }
