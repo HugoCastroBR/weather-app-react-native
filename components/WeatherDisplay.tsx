@@ -8,6 +8,7 @@ import UnitsPicker from './UnitsPicker';
 
 const styles = StyleSheet.create({
     mainContainer: {
+        marginTop: 230,
         alignItems: 'center',
         justifyContent: 'center',
     },

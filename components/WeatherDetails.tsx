@@ -6,15 +6,16 @@ import { FontAwesome5, MaterialCommunityIcons, MaterialIcons } from '@expo/vecto
 
 const styles = StyleSheet.create({
     detailsContainer: {
-        borderWidth: 1,
+        marginTop: 100,
+        borderWidth: 0.5,
+
         borderColor: '#adadad',
         borderRadius: 20,
         width: '94%',
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'space-between',
-        position: "absolute",
-        bottom: '2%',
+
         overflow: 'hidden',
         height: 140,
     },
@@ -25,10 +26,12 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
     },
     detailsItem: {
-        width: '50%',
+        width: '50.1%',
         height: '100%',
         borderWidth: 0.5,
+        borderTopWidth: 0.5,
         borderBottomWidth: 0.5,
+
         borderColor: '#adadad',
         flexDirection: 'row',
         alignItems: 'center',

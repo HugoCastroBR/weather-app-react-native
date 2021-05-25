@@ -1,11 +1,20 @@
-import * as React from 'react';
+import React, { useState } from 'react';
+import { StyleSheet } from 'react-native';
 import Svg,{Path,G} from 'react-native-svg';
 
 
 type onPressProp = {
     onPress: () => Promise<void>
 }
+
+
+
+
 const ReloadIcon = ({onPress}:onPressProp) => {
+
+
+
+
     const size = 24
     return(
         <Svg height={size} width={size} viewBox="0 0 500 500" onPress={onPress} >
