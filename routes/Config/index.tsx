@@ -1,13 +1,21 @@
 import React from 'react';
-import { Text, View } from "react-native"
+import { StyleSheet, Text, View } from "react-native"
+import { ScrollView } from 'react-native-gesture-handler';
+import ConfigItem from '../../components/ConfigItem';
+import { style } from './style';
+
+
 
 const ConfigScreen = () => {
     return(
-        <View>
-            <Text>
-                ConfigScreen
+        <ScrollView contentContainerStyle={style.componentContainer}>
+            <Text style={style.settingsTitle}>
+                Settings:
             </Text>
-        </View>
+            <ConfigItem/>
+            <ConfigItem/>
+            <ConfigItem/>
+        </ScrollView>
     )
 }
 

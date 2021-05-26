@@ -8,9 +8,10 @@ import TabComponent from './components/tab/index';
 
 
 
+
 export default function App() {
   return (
-    <NavigationContainer>
+    <NavigationContainer >
       <TabComponent/>   
     </NavigationContainer>
     

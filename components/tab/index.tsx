@@ -26,7 +26,8 @@ const TabComponent = () => {
 
                 tabBarIcon: ({ focused }) => (
                     <View>
-                        <MaterialCommunityIcons name="weather-cloudy" size={40} color={focused ? "#cc2211" : "gray"}/>
+                        <Ionicons name="search" size={36} color={focused ? "#cc2211" : "gray"} />
+                        
                     </View>
                 )
             }} />
@@ -35,7 +36,7 @@ const TabComponent = () => {
 
                 tabBarIcon: ({ focused }) => (
                     <View>
-                        <AntDesign name="home" size={40} color={focused ? "#cc2211" : "gray"}/>
+                        <MaterialCommunityIcons name="weather-cloudy" size={40} color={focused ? "#cc2211" : "gray"}/>
                     </View>
                 )
             }} />
