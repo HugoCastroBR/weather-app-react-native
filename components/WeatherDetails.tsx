@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from "react-native"
 import { weatherType } from '../types';
 import { FontAwesome5, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons'
+import useWeatherApp from '../hooks/useWeatherApp';
 
 
 const styles = StyleSheet.create({
@@ -58,6 +59,11 @@ const styles = StyleSheet.create({
 
 
 const WeatherDetails = ({...weather}:weatherType) => {
+
+    const {states, dispatch} = useWeatherApp()
+    const theme = {...states.Theme}
+
+    
     return (
         <View style={styles.detailsContainer}>
 
@@ -66,8 +72,8 @@ const WeatherDetails = ({...weather}:weatherType) => {
                     <FontAwesome5 name="temperature-low" size={25} color="#cc2211"/>
 
                     <View style={styles.textContainer}>
-                        <Text style={styles.textPrimary}>Feels Like:</Text>
-                        <Text style={styles.textSecondary}>{weather.main.feels_like}°</Text>
+                        <Text style={{...styles.textPrimary,color:theme.textMainColor}}>Feels Like:</Text>
+                        <Text style={{...styles.textSecondary,color:theme.textMainColor}}>{weather.main.feels_like}°</Text>
                     </View>
 
                 </View>
@@ -75,10 +81,10 @@ const WeatherDetails = ({...weather}:weatherType) => {
                 <MaterialCommunityIcons name="water" size={25} color="#cc2211" />
 
                     <View style={styles.textContainer}>
-                        <Text style={styles.textPrimary}>Humidity:</Text>
-                        <Text style={styles.textSecondary}>{weather.main.humidity} %</Text>
+                        <Text style={{...styles.textPrimary,color: theme.textMainColor}}>Humidity:</Text>
+                        <Text style={{...styles.textSecondary,color:theme.textMainColor}}>{weather.main.humidity} %</Text>
                     </View>
-
+                    
                 </View>
             </View>
 
@@ -87,8 +93,8 @@ const WeatherDetails = ({...weather}:weatherType) => {
                     <MaterialCommunityIcons name="weather-windy" size={25} color="#cc2211" />
 
                     <View style={styles.textContainer}>
-                        <Text style={styles.textPrimary}>Wind Speed:</Text>
-                        <Text style={styles.textSecondary}>{weather.wind.speed} m/s</Text>
+                        <Text style={{...styles.textPrimary,color: theme.textMainColor}}>Wind Speed:</Text>
+                        <Text style={{...styles.textSecondary,color:theme.textMainColor}}>{weather.wind.speed} m/s</Text>
                     </View>
 
                 </View>
@@ -96,8 +102,8 @@ const WeatherDetails = ({...weather}:weatherType) => {
                 <MaterialIcons name="speed" size={25} color="#cc2211" />
 
                     <View style={styles.textContainer}>
-                        <Text style={styles.textPrimary}>Pressure:</Text>
-                        <Text style={styles.textSecondary}>{weather.main.pressure} hPa</Text>
+                        <Text style={{...styles.textPrimary,color: theme.textMainColor}}>Pressure:</Text>
+                        <Text style={{...styles.textSecondary,color:theme.textMainColor}}>{weather.main.pressure} hPa</Text>
                     </View>
 
                 </View>

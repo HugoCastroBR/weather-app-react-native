@@ -3,6 +3,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from './routes/Home';
 import TabComponent from './components/tab/index';
+import store from './store';
+import { Provider } from 'react-redux';
 
 
 
@@ -11,9 +13,12 @@ import TabComponent from './components/tab/index';
 
 export default function App() {
   return (
-    <NavigationContainer >
+    <Provider store={store}>
+      <NavigationContainer >
       <TabComponent/>   
     </NavigationContainer>
+    </Provider>
+    
     
   )
 }

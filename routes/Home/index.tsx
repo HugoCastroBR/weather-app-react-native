@@ -9,12 +9,11 @@ import { weatherType } from '../../types';
 import { styles } from './style';
 import * as Location from "expo-location"
 import { FlatList, ScrollView } from 'react-native-gesture-handler';
+import useWeatherApp from './../../hooks/useWeatherApp';
 
 
 const Home = () => {
     const ApiKey = WEATHER_API_KEY
-    console.log(ApiKey)
-
     const baseUrl = `https://api.openweathermap.org/data/2.5/weather?`
 
 
@@ -59,9 +58,11 @@ const Home = () => {
         }
     }
 
-
+    
+    const {states, dispatch} = useWeatherApp()
+    const theme = {...states.Theme}
     return (
-        <ScrollView contentContainerStyle={styles.pageContainer} >
+        <ScrollView contentContainerStyle={{...styles.pageContainer , backgroundColor:theme.backgroundColor}} >
 
                 <UnitsPicker unit={unit} setUnit={setUnit} />
                 <View style={styles.reloadIcon} >
@@ -69,7 +70,7 @@ const Home = () => {
                 </View>
                 <WeatherDisplay {...weather} />
                 <WeatherDetails {...weather} />
-         
+
         </ScrollView>
         
 

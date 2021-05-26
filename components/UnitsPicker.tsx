@@ -1,6 +1,7 @@
 import { Picker } from '@react-native-community/picker';
 import * as React from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
+import useWeatherApp from '../hooks/useWeatherApp';
 
 
 const styles = StyleSheet.create({
@@ -27,11 +28,16 @@ type UnitPickerProps = {
 }
 
 const UnitsPicker = ({unit,setUnit}:UnitPickerProps) => {
+
+    const {states, dispatch} = useWeatherApp()
+    const theme = {...states.Theme}
+
     return(
         <View
         style={styles.unitsSystem}
         >
             <Picker
+                style={{color: theme.textMainColor}}
                 onValueChange={value => {
                     if(typeof(value) === 'string'){
                         setUnit(value)

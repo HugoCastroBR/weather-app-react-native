@@ -7,7 +7,6 @@ import { Platform, StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
 	pageContainer: {
 		flex: 1,
-		backgroundColor: "#ebebeb",
 		alignItems: "center",
 		justifyContent: "flex-start",
 		overflow: 'scroll',
