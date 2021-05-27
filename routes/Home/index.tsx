@@ -50,7 +50,6 @@ const Home = () => {
             const res = await fetch(Url)
             const infos = await res.json()
 
-            console.log(infos)
 
             setWeather(infos)
         } catch (err) {

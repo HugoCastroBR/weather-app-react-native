@@ -22,7 +22,7 @@ const RecentSearches = () => {
             height: 'auto',
             alignItems: 'flex-start',
             marginTop: 20,
-    
+            marginBottom: 120
         },
         componentTitle:{
             fontSize: 22,
@@ -36,9 +36,8 @@ const RecentSearches = () => {
     return(
         <ScrollView contentContainerStyle={style.componentContainer}>
             <Text style={style.componentTitle}>Previous searches :</Text>
-            <RecentSearchItem/>
-            <RecentSearchItem/>
-            <RecentSearchItem/>
+            {states.Location.recentSearches.map((e,index) => <RecentSearchItem key={index} place={e}/>)}
+
         </ScrollView>
             
 

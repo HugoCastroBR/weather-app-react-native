@@ -19,3 +19,13 @@ export type weatherType = {
         speed: number
     }
 }
+
+export type placeType = {
+    city: string
+    state: string
+    country: string
+    lat: string
+    long: string
+    state_code: string
+}
+

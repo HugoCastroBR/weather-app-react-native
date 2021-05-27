@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, StyleSheet, TextInput, View } from 'react-native';
 import { Text } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import useWeatherApp from '../hooks/useWeatherApp';
+import { searchCity } from './../store/fetchActions/fetchLocation';
 
 
 
@@ -46,15 +47,19 @@ const SearchForm = () => {
     
     })
 
+    const [search, setSearch] = useState("")
+
     return(
         <View style={style.componentContainer}>
             <Text style={{fontSize:20 , color: theme.textMainColor}}>  
                 Type your location here :
             </Text>
-            <TextInput style={style.inputStyle} placeholder="Location"/>
+            <TextInput style={style.inputStyle} placeholder="Location" onChangeText={(event) => setSearch(event)}/>
             <View style={style.buttonContainer}>
 
-                <TouchableOpacity onPress={console.log} 
+                <TouchableOpacity onPress={() => {
+                    dispatch(searchCity(`${search}`))
+                }} 
                 style={style.buttonStyle}>
                     <Text style={{color:'white',fontSize:18}}>
                         Submit

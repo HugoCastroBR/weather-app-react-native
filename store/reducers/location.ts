@@ -1,13 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { placeType } from "../../types";
+
+
+
 
 export const LocationSlice = createSlice({
     name: "locationSlice",
     initialState:{
-        city: ""
+
+        place : {
+            city: ''
+        } as placeType ,
+        
+        recentSearches : [] as placeType[] ,
+
+
+        
     },
+    
     reducers: {
-        SET_CITY(state,{payload}:{payload:string}){
-            state.city = payload
+        SET_PLACE(state,{payload}:{payload:placeType}){
+            state.place = payload
+            state.recentSearches.push(payload)
     }
 }
 })
+
