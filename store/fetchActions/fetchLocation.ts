@@ -3,6 +3,9 @@ import api from "../../services/api"
 import { placeType } from "../../types"
 import { SetLocation } from "../actions"
 
+
+
+
 export const searchCity = (city:string) => {
     const cityClean = city.replace(' ','%2C%20')
     

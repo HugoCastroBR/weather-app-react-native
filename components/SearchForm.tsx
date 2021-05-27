@@ -5,6 +5,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import useWeatherApp from '../hooks/useWeatherApp';
 import { searchCity } from './../store/fetchActions/fetchLocation';
+import { useNavigation } from '@react-navigation/core';
 
 
 
@@ -48,7 +49,7 @@ const SearchForm = () => {
     })
 
     const [search, setSearch] = useState("")
-
+    const navigation = useNavigation();
     return(
         <View style={style.componentContainer}>
             <Text style={{fontSize:20 , color: theme.textMainColor}}>  
@@ -59,6 +60,7 @@ const SearchForm = () => {
 
                 <TouchableOpacity onPress={() => {
                     dispatch(searchCity(`${search}`))
+                    navigation.navigate('Home')
                 }} 
                 style={style.buttonStyle}>
                     <Text style={{color:'white',fontSize:18}}>

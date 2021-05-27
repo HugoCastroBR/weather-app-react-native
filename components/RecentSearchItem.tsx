@@ -1,25 +1,28 @@
+import { useNavigation } from '@react-navigation/core';
 import React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { IconButton, Colors } from 'react-native-paper';
 import useWeatherApp from '../hooks/useWeatherApp';
+import { SetLocation } from '../store/actions';
+import { searchCity } from '../store/fetchActions/fetchLocation';
 import { placeType } from '../types';
 
 
 
 
 
-const RecentSearchItem = ({place}:{place:placeType}) => {
+const RecentSearchItem = ({ place }: { place: placeType }) => {
 
-    const {states, dispatch} = useWeatherApp()
-    const theme = {...states.Theme}
+    const { states, dispatch } = useWeatherApp()
+    const theme = { ...states.Theme }
 
 
     const style = StyleSheet.create({
-        recentItemStyle:{
+        recentItemStyle: {
             minWidth: '100%',
             maxWidth: '100%',
-            height: 70 ,
+            height: 70,
             backgroundColor: theme.itemBackGroundColor,
             marginTop: 10,
             borderRadius: 12,
@@ -40,17 +43,20 @@ const RecentSearchItem = ({place}:{place:placeType}) => {
     }
     )
 
-    console.log("A: ",place)
+    const navigation = useNavigation();
 
-    return(
+    return (
         <View style={style.recentItemStyle}>
             <View style={style.locationContainer}>
                 <Text style={style.mainText}>{place.city}</Text>
-                <Text style={{color: theme.textMainColor}}>{place.state_code}, {place.country}</Text>
+                <Text style={{ color: theme.textMainColor }}>{place.state_code?`${place.state_code}, `:''}{place.country}</Text>
             </View>
-            <IconButton  onPress={console.log} icon="arrow-right" size={30} color="#cc2211"/>
+            <IconButton onPress={console.log} icon="arrow-right" size={30} color="#cc2211" onPressIn={() => {
+                dispatch(SetLocation(place))
+                navigation.navigate('Home')
+            }} />
         </View>
-            
+
 
     )
 }

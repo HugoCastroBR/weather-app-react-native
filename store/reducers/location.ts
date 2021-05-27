@@ -21,7 +21,7 @@ export const LocationSlice = createSlice({
     reducers: {
         SET_PLACE(state,{payload}:{payload:placeType}){
             state.place = payload
-            state.recentSearches.push(payload)
+            state.recentSearches.unshift(payload)
     }
 }
 })

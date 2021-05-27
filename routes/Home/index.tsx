@@ -27,10 +27,12 @@ const Home = () => {
 
     const [unit, setUnit] = useState('metric')
 
+    const {states, dispatch} = useWeatherApp()
 
+    
     useEffect(() => {
         load()
-    }, [unit])
+    }, [unit,states.Location.recentSearches])
 
 
     const load = async () => {
@@ -43,22 +45,34 @@ const Home = () => {
                 return
             }
 
-            const location = await Location.getCurrentPositionAsync();
-            const { latitude, longitude } = location.coords;
-            const Url = `${baseUrl}lat=${latitude}&lon=${longitude}&units=${unit}&appid=${ApiKey}`
+            if(states.Location.recentSearches.length < 1){
+                const location = await Location.getCurrentPositionAsync();
+                const { latitude, longitude } = location.coords;
+                const Url = `${baseUrl}lat=${latitude}&lon=${longitude}&units=${unit}&appid=${ApiKey}`
 
-            const res = await fetch(Url)
-            const infos = await res.json()
+                const res = await fetch(Url)
+                const infos = await res.json()
 
 
-            setWeather(infos)
+                setWeather(infos)
+            }else{
+
+                const savedLocation = states.Location.recentSearches[0]
+                const { lat, long } = savedLocation;
+                const Url = `${baseUrl}lat=${lat}&lon=${long}&units=${unit}&appid=${ApiKey}`
+
+                const res = await fetch(Url)
+                const infos = await res.json()
+                setWeather(infos)
+            }
+            
         } catch (err) {
             alert(err.message)
         }
     }
 
     
-    const {states, dispatch} = useWeatherApp()
+    
     const theme = {...states.Theme}
     return (
         <ScrollView contentContainerStyle={{...styles.pageContainer , backgroundColor:theme.backgroundColor}} >

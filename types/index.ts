@@ -29,3 +29,7 @@ export type placeType = {
     state_code: string
 }
 
+export type weatherApiInput = {
+    latitude: string
+    longitude: string
+}
