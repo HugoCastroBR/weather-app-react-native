@@ -4,7 +4,7 @@ import { Button, StyleSheet, Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { IconButton, Colors } from 'react-native-paper';
 import useWeatherApp from '../hooks/useWeatherApp';
-import { SetLocation } from '../store/actions';
+import { RemovePlaceFromRecent, SetLocation } from '../store/actions';
 import { searchCity } from '../store/fetchActions/fetchLocation';
 import { placeType } from '../types';
 
@@ -12,7 +12,8 @@ import { placeType } from '../types';
 
 
 
-const RecentSearchItem = ({ place }: { place: placeType }) => {
+
+const RecentSearchItem = ({ place,id }: { place: placeType, id: number }) => {
 
     const { states, dispatch } = useWeatherApp()
     const theme = { ...states.Theme }
@@ -44,14 +45,15 @@ const RecentSearchItem = ({ place }: { place: placeType }) => {
     )
 
     const navigation = useNavigation();
-
+    
     return (
         <View style={style.recentItemStyle}>
             <View style={style.locationContainer}>
                 <Text style={style.mainText}>{place.city}</Text>
                 <Text style={{ color: theme.textMainColor }}>{place.state_code?`${place.state_code}, `:''}{place.country}</Text>
             </View>
-            <IconButton onPress={console.log} icon="arrow-right" size={30} color="#cc2211" onPressIn={() => {
+            <IconButton  icon="arrow-right" size={30} color="#cc2211" onPress={() => {
+                dispatch(RemovePlaceFromRecent(id))
                 dispatch(SetLocation(place))
                 navigation.navigate('Home')
             }} />

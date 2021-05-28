@@ -9,7 +9,10 @@ export const SetDarkMode = (dark:boolean) => {
 //  Locations 
 
 export const SetLocation = (location:placeType) => {
-    console.log("executando ?")
-    console.log(":",location)
+
     return LocationActions.SET_PLACE(location)
+}
+
+export const RemovePlaceFromRecent = (id:number) => {
+    return LocationActions.REMOVE_PLACE(id)
 }

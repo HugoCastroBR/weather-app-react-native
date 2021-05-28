@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, Text } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import useWeatherApp from '../hooks/useWeatherApp';
@@ -31,12 +31,11 @@ const RecentSearches = () => {
     }
     )
 
-    
 
     return(
         <ScrollView contentContainerStyle={style.componentContainer}>
             <Text style={style.componentTitle}>Previous searches :</Text>
-            {states.Location.recentSearches.map((e,index) => <RecentSearchItem key={index} place={e}/>)}
+            {states.Location.recentSearches.map((e,index) => <RecentSearchItem key={index} place={e} id={index}/>)}
 
         </ScrollView>
             

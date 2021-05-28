@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 import { placeType } from "../../types";
 
 
@@ -21,8 +21,18 @@ export const LocationSlice = createSlice({
     reducers: {
         SET_PLACE(state,{payload}:{payload:placeType}){
             state.place = payload
-            state.recentSearches.unshift(payload)
-    }
-}
+            let newStateRecent = [...current(state).recentSearches]
+            newStateRecent.unshift(payload)
+            newStateRecent = newStateRecent.slice(0,3)
+            state.recentSearches = newStateRecent
+
+            // state.recentSearches.unshift(payload)
+            
+        },
+        REMOVE_PLACE(state,{payload}:{payload:number}){
+            state.recentSearches.splice(payload,1)
+        }
+
+        }       
 })
 

@@ -4,8 +4,9 @@ import { Text } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import useWeatherApp from '../hooks/useWeatherApp';
-import { searchCity } from './../store/fetchActions/fetchLocation';
+import { getCityByCoords, searchCity } from './../store/fetchActions/fetchLocation';
 import { useNavigation } from '@react-navigation/core';
+import * as Location from "expo-location"
 
 
 
@@ -48,6 +49,25 @@ const SearchForm = () => {
     
     })
 
+    const getLocation = async () => {
+        try {
+            let { status } = await Location.requestForegroundPermissionsAsync();
+
+            if (status !== 'granted') {
+                alert('Access to localization is needed to run the app!');
+                return
+            }
+
+            const location = await Location.getCurrentPositionAsync();
+            const { latitude, longitude } = location.coords;
+            console.log(location.coords)
+            dispatch(getCityByCoords(`${latitude}`,`${longitude}`))
+        } catch (err) {
+            alert(err)
+        }
+    }
+
+
     const [search, setSearch] = useState("")
     const navigation = useNavigation();
     return(
@@ -68,12 +88,14 @@ const SearchForm = () => {
                     </Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={console.log} 
+                <TouchableOpacity onPress={() => {
+                            // 
+                            getLocation()
+                            navigation.navigate('Home')
+                        }}
                     style={style.buttonStyle}>
                     <Text>
-                        <MaterialIcons name="my-location" size={30} color="white" onPress={() => {
-                        console.log("get location")
-                        }} />
+                        <MaterialIcons name="my-location" size={30} color="white"  />
                     </Text>
                 </TouchableOpacity>
 
