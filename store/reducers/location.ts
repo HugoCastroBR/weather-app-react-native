@@ -22,6 +22,7 @@ export const LocationSlice = createSlice({
         SET_PLACE(state,{payload}:{payload:placeType}){
             state.place = payload
             let newStateRecent = [...current(state).recentSearches]
+            newStateRecent = newStateRecent.filter(e => e.city !== payload.city)
             newStateRecent.unshift(payload)
             newStateRecent = newStateRecent.slice(0,3)
             state.recentSearches = newStateRecent

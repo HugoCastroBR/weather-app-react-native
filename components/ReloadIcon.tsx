@@ -45,7 +45,6 @@ const ReloadIcon = ({ onPress }: onPressProp) => {
         <Animated.View style={styles.box}>
             <Animated.View style={[styles.box, animatedStyle]}>
             <AntDesign name="reload1" size={size} color="black" onPress={() => {
-                console.log("animando")
                 rotation.value = withSequence(
                     withTiming((360 * 2), { duration: 10000 }),
                     withTiming(0, { duration: 0 })

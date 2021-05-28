@@ -52,15 +52,12 @@ const SearchForm = () => {
     const getLocation = async () => {
         try {
             let { status } = await Location.requestForegroundPermissionsAsync();
-
             if (status !== 'granted') {
                 alert('Access to localization is needed to run the app!');
                 return
             }
-
             const location = await Location.getCurrentPositionAsync();
             const { latitude, longitude } = location.coords;
-            console.log(location.coords)
             dispatch(getCityByCoords(`${latitude}`,`${longitude}`))
         } catch (err) {
             alert(err)

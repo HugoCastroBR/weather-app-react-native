@@ -21,7 +21,6 @@ export const searchCity = (city:string) => {
         api.get(`/json?key=${GEO_LOCATION_API_KEY}&q=${cityClean}`)
         .then((res) => {
             const data = res.data.results[0]
-            console.log(data)
             const city = data.components[data.components['_type']] === undefined ? data.components.town : data.components[data.components['_type']]
             let results:placeType = {
                 city ,
@@ -31,7 +30,6 @@ export const searchCity = (city:string) => {
                 lat: `${data.geometry.lat}`,
                 state_code: data.components.state_code
             }
-            console.log("chegou")
             dispatch(SetLocation(results))
             
         })
@@ -45,10 +43,9 @@ export const searchCity = (city:string) => {
 export const getCityByCoords = (lat:string,long:string) => {
 
     return (dispatch:any) => {
-        api.get(`https://api.opencagedata.com/geocode/v1/json?q=${lat}+${long}&key=${GEO_LOCATION_API_KEY}`)
+        api.get(`/json?q=${lat}+${long}&key=${GEO_LOCATION_API_KEY}`)
         .then((res) => {
             const data = res.data.results[0]
-            console.log(data)
             const city = data.components[data.components['_type']] === undefined ? data.components.town : data.components[data.components['_type']]
             let results:placeType = {
                 city ,
